@@ -1,0 +1,355 @@
+// laboratorio 2.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "math.h"
+
+using namespace std;
+
+//caso base siempre son la primera estructura que estmos tonamdo
+
+
+
+int factorial(int n)
+{
+	int x;
+	if(n==0)    //caso base
+	
+		return 1; //caso base
+	else
+	{
+		int x=factorial(n-1); //hipotesis inductiva
+		return (x*n);         //hipotesis inductiva
+	}
+	
+}
+
+int sumaNaturales(int n)//suma ej: x=3 entonces hago 1+2+3 sum=6.
+{
+	if(n==0)
+		return 0; //en caso de que alguien ponga el primer numero como 0;
+	else
+	{
+		int sum=sumaNaturales(n-1);
+		return(sum+n);//esto es lo que inica que hace todo el algoritmo. depende que hace con el ultimo numero es lo que hace con TODO.
+	}
+}
+
+int sumaPares(int n)
+{
+	int sum;
+	if(n==0)
+		return 0; //en caso de que alguien ponga el primer numero como 0;
+	else
+	{
+		sum=sumaPares(n-1);
+
+		if(n%2==0)
+		return(sum+n);
+		else
+			return(sum);
+	}
+}
+
+int sumaVector(int v[], int n)
+{
+	int s;
+	if(n==0)
+	
+		return v[0];
+	else
+	{
+		s=sumaVector(v,n-1);
+		return(s+v[n-1]);
+	}
+}
+
+int contarPares(int n) //si n=7 contar cuantos pares hay del 1 al 7 pares
+{
+	int pares;
+	if(n==0)
+		return 0;
+	else
+	{
+		pares=contarPares(n-1);
+
+		if(n%2==0)
+			return(pares+1);
+		else
+		return pares;
+	}
+}
+
+float potencia(int n, int x)
+{
+	int pot,i;
+	pot=1;
+	i=1;
+	while(i<=x)
+	{
+		pot=pot*n;
+		i++;
+	}
+	return(pot);
+}
+
+int sumaCuadrados(int n)
+{	int cuadrados;
+	if(n==0)
+		return 0;
+	else
+	{
+		cuadrados=sumaCuadrados(n-1);
+		return(cuadrados+(potencia(n,2)));
+	}
+}
+
+float serie1(int n) //si n=3 --> (1!/1^2)+(2!/2^2)+(3!/3^2) y asi.
+{	
+	float s;
+	if(n==0)
+		return 0;
+	else
+	{
+		s=serie1(n-1);
+		return (s + (factorial(n)/potencia(n,2)));
+	}
+}
+
+int potenciaRecursiva(int x, int y)
+{
+	int pot;
+	if(y==0)
+		return 1;
+	else
+	{
+		pot=potenciaRecursiva(x,y-1);
+		return (pot*x);
+	}
+}
+
+//realizar una funcion que imprima los n primeros numeros naturales
+void imprimeNaturales(int n)
+{
+	if(n==0)
+	{
+		//lo dejo en blanco pq no quiero que imprima nada si es 0
+	}
+	else
+	{
+		imprimeNaturales(n-1);
+		cout<<n<<"\t";
+
+	}
+}
+
+void imprimeNaturalesInvertido(int n)
+{
+	if(n==0)
+	{
+		//lo dejo en blanco pq no quiero que imprima nada si es 0
+	}
+	else
+	{
+		cout<<n<<"\t";
+		imprimeNaturalesInvertido(n-1);
+
+	}
+}
+//mostrar los numeros pares que estan entre n
+//ej: si n=5 imprime: 2  4
+void imprimePares(int n)
+{
+	if(n==0)
+	{
+		//lo dejo en blanco pq no quiero que imprima nada si es 0
+	}
+	else
+	{
+		imprimePares(n-1);
+		if(n%2==0)
+			cout<<n<<"\t";
+		else
+		{
+
+		}
+	}
+}
+
+//suma de digitos de un numero
+int sumadigitos(int n)
+{
+	int sum;
+	if(n<10)
+		return n;
+	else
+	{
+		sum=sumadigitos(n/10);// pq n/10 me da todos los numeros antes del ultimo, es decir "n-1".
+		return(sum+n%10);
+
+	}
+}
+ void muestradigitos(int num)
+{
+	if(num<10)
+		cout<<num<<"\t";
+	else
+	{	
+		muestradigitos(num/10);
+		cout<<num%10<<"\t";
+	}
+
+}
+void muestradigitosinverso(int num)
+{
+	if(num<10)
+		cout<<num<<"\t";
+	else
+	{	
+		cout<<num%10<<"\t";
+		muestradigitosinverso(num/10);
+	}
+
+}
+
+int SumaDigitosPares(int num)
+{
+	int sumpar;
+	if(num<10)
+	{	if(num%2==0)
+			return num;
+	}
+	else
+	{
+		sumpar=SumaDigitosPares(num/10);
+		if((num%10)%2==0)
+			return sumpar+num%10;
+		else
+		{
+			return sumpar;
+		}
+	}
+}
+
+
+int CantidadDigitosPares(int num)
+{
+	int contPar;
+	if(num<10)
+	{	if(num%2==0)
+			return 1;
+		else 
+			return 0;
+	}
+	else
+	{
+		contPar=CantidadDigitosPares(num/10);
+		if((num%10)%2==0)
+			return contPar+1;
+		else
+		{
+			return contPar;
+		}
+	}
+}
+
+//encontrar el mayor digito de un numero
+int mayorDigito(int num)
+{
+	int may;
+	if(num<10)
+		return num;
+	else
+	{
+		may=mayorDigito(num/10);
+		if((num%10)>may)
+			return num%10;
+		else 
+			return may;
+	}
+}
+void main()
+{
+	int x,fact,x2,suma,sumapar,x3,x4,pares,x5,cuadrados,x6,x7,potrecursiva,y,x8,x9,x10,x11,sumadig,x12,x13,x14,par,parsum,x15,x16,maydig;
+	float s;
+	//cout<<"(1)ingrese el numero del cual deea calcular el factorial \t";
+	//cin>>x;
+	//fact=factorial(x);
+	//cout<<"el factorial de "<<x<<" es: "<<fact<<endl;
+	//cout<<endl;
+	//cout<<"(2)ingrese el digito del cual desea calcular la suma \t";
+	//cin>>x2;
+	//suma=sumaNaturales(x2);
+	//cout<<"la suma de "<<x2<<" es: "<<suma<<endl;
+	//cout<<endl;
+	//cout<<"(3)ingrese el digito del cual desea calcular la suma \t";
+	//cin>>x3;
+	//sumapar=sumaPares(x3);
+	//cout<<"la suma de los pares de "<<x3<<" es: "<<sumapar<<endl;
+	//cout<<endl;
+	//cout<<"(4)ingrese el digito del cual desea calcular la cantidad de pares \t";
+	//cin>>x4;
+	//pares=contarPares(x4);
+	//cout<<"la cantidad de pares de "<<x4<<" es: "<<pares<<endl;
+	//cout<<endl;
+	//cout<<"(5)ingrese el digito del cual desea calcular la suma de los cuadrados \t";
+	//cin>>x5;
+	//cuadrados=sumaCuadrados(x4);
+	//cout<<"la cantidad de pares de "<<x5<<" es: "<<cuadrados<<endl;
+	//cout<<endl;
+	//cout<<"(6)ingrese el digito del cual desea calcular la serie \t";
+	//cin>>x6;
+	//s=serie1(x6);
+	//cout<<"la suma de la serie de "<<x6<<" es: "<<s<<endl;
+	//cout<<endl;
+	//cout<<"(7)ingrese el numero del cual desea calcular la potencia \t";
+	//cin>>x7;
+	//cout<<"ingrese la potencia \t";
+	//cin>>y;
+	//potrecursiva=potenciaRecursiva(x7,y);
+	//cout<<"la potencia "<<x7<<" es: "<<potrecursiva<<endl;
+	//cout<<endl;
+	//cout<<"(8)ingrese el numero hasta el cual desea imprimir los numeros naturales \t";
+	//cin>>x8;
+	//imprimeNaturales(x8);
+	//cout<<endl;
+	//cout<<"(9)ingrese el numero hasta el cual desea imprimir los numeros naturales invertido \t";
+	//cin>>x9;
+	//imprimeNaturalesInvertido(x9);
+	//cout<<endl;
+	//cout<<"(10)ingrese el numero hasta el cual desea imprimir los numeros naturales pares \t";
+	//cin>>x10;
+	//imprimePares(x10);
+	//cout<<endl;
+	//cout<<"(11)ingrese el numero que desea calcular la suma de sus digitos \t";
+	//cin>>x11;
+	//sumadig=sumadigitos(x11);
+	//cout<<"la suma de digitos del numero "<<x11<<" es: "<<sumadig<<endl;
+	//cout<<endl;
+	//cout<<"(12)ingrese el numero que quiere imprimir cada digito \t";
+	//cin>>x12;
+	//muestradigitos(x12);
+	//cout<<endl;
+	//cout<<"(13)ingrese el numero que quiere imprimir cada digito \t";
+	//cin>>x13;
+	//muestradigitosinverso(x13);
+	//cout<<endl;
+	//cout<<"(14)ingrese el numero que desea saber cuantos digitos pares tiene \t";
+	//cin>>x14;
+	//par=CantidadDigitosPares(x14);
+	//cout<<"el numero "<<x14<<" tiene "<<par<<" digitos pares";
+	//cout<<"(15)ingrese el numero que desea saber la suma de sus digitos pares \t";
+	//cin>>x15;
+	//parsum=SumaDigitosPares(x15);
+	//cout<<"los digitos pares del numero "<<x15<<" suman "<<parsum<<".";
+	//cout<<endl;
+	cout<<"(16)ingrese el numero que desea saber cual es el mayor digito \t"<<endl;
+	cin>>x16;
+	maydig=mayorDigito(x16);
+	cout<<"El mayor digito de "<<x16<<" es "<<maydig<<".";
+	cout<<endl;
+	getch();
+
+}
