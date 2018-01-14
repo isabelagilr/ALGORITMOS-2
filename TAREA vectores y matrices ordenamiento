@@ -1,0 +1,224 @@
+// lalalalalla.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "stdlib.h"
+#include "stdio.h"
+
+using namespace std;
+
+void cargarMatriz(int A[10][10], int fil, int col)
+{	
+	int i,j;
+	for(i=0;i<fil;i++)
+		for(j=0;j<col;j++)
+			{cout<<"ingrese ["<<i<<"]["<<j<<"]=";
+			cin>>A[i][j];
+			}
+
+}
+
+void mostrarMatriz(int A[10][10], int fil, int col)
+{	
+	int i,j;
+	for(i=0;i<fil;i++)
+		{for(j=0;j<col;j++)
+			{
+			cout<<A[i][j]<<"\t";
+			}
+		cout<<endl;
+		}
+}
+
+void cargar(int v[], int n)
+{
+ int x; 
+ for(int i=0;i<n;i++)
+ {
+	 cout<<"Elemento "<<i+1<<": ";
+	 cin>>x;
+	 v[i]=x;
+ }
+}
+
+void mostrar(int v[], int n)
+{
+ for(int i=0;i<n;i++)
+	 cout<<v[i];
+
+ cout<<endl;
+}
+
+void shellmayamen(int v[], int n)
+{
+	int salto,pasos,aux,i;
+ 
+	for(salto=n/2;salto!=0;salto/=2)
+		for(pasos=1;pasos!=0;)
+		{
+			pasos=0;
+			for(i=salto;i<n;i++)
+				if(v[i-salto]<v[i])
+				{
+					aux=v[i];
+					v[i]=v[i-salto];
+					v[i-salto]=aux;
+					pasos++;
+				}
+		}
+}
+void shellmenamay(int v[], int n)
+{
+	int salto,pasos,aux,i;
+ 
+	for(salto=n/2;salto!=0;salto/=2)
+		for(pasos=1;pasos!=0;)
+		{
+			pasos=0;
+			for(i=salto;i<n;i++)
+				if(v[i-salto]>v[i])
+				{
+					aux=v[i];
+					v[i]=v[i-salto];
+					v[i-salto]=aux;
+					pasos++;
+				}
+		}
+}
+
+void ordenarQuick (int vect[], int izq, int der)
+{
+  int i, j; /* variables indice del vector */
+  int elem; /* contiene un elemento del vector */
+  i = izq;
+  j = der;
+  elem = vect[(izq+der)/2];
+  do
+  {while (vect[i] < elem) //recorrido del vector hacia la derecha
+    i++; 
+   while (elem < vect[j]) // recorrido del vector hacia la izquierda
+    j--; 
+   if (i <= j) /* intercambiar */
+   { int aux; /* variable auxiliar */
+     aux = vect[i];
+     vect[i] = vect[j];
+     vect[j] = aux;
+     i++;
+     j--;
+   }
+  } while (i <= j);
+  if (izq < j) {ordenarQuick (vect, izq, j);} //Llamadas recursivas
+  if (i < der) {ordenarQuick (vect, i, der);}
+}
+
+void matrizShellmayamen(int mat[10][10], int fil, int col)
+{
+	int vec[50],aux,v=0,n;
+	n=fil*col;
+
+	for(int f=0;f<fil;f++)
+	{
+		for(int c=0;c<col;c++)
+		{
+			vec[v++]=mat[f][c];
+		}
+	}
+
+	shellmayamen(vec,v);
+
+	v=0;
+
+	for(int f=0;f<fil;f++)
+	{
+		for(int c=0;c<col;c++)
+		{
+			mat[f][c]=vec[v++];
+		}
+	}
+}
+void matrizquick(int mat[10][10], int fil, int col)
+{
+	int vec[50],aux,v=0,n;
+	n=fil*col;
+
+	for(int f=0;f<fil;f++)
+	{
+		for(int c=0;c<col;c++)
+		{
+			vec[v++]=mat[f][c];
+		}
+	}
+
+	ordenarQuick(vec,0,v-1);
+
+	v=0;
+
+	for(int f=0;f<fil;f++)
+	{
+		for(int c=0;c<col;c++)
+		{
+			mat[f][c]=vec[v++];
+		}
+	}
+
+}
+
+
+
+void main()
+{
+	int n,fil,col;
+
+	int v[50],mat[10][10];
+	cout<<"Dimension del vector:\t";
+	cin>>n;
+	cargar(v,n);
+	cout<<"El vector cargado es:"<<endl;
+	mostrar(v,n);
+	cout<<endl;
+	cout<<"METODO QUICKSORT"<<endl;
+	cout<<endl;
+	cout<<"El arreglo ordenado de Menor a Mayor es:"<<endl;
+	ordenarQuick(v,0,n-1);
+	mostrar(v,n);
+	cout<<endl;
+	cout<<endl;
+	cout<<endl;
+	cout<<"METODO SHELL"<<endl;
+	cout<<endl;
+	cout<<"El arreglo ordenado de Menor a Mayor es:"<<endl;
+	shellmenamay(v,n);
+	mostrar(v,n);
+	cout<<endl;
+	cout<<"El arreglo ordenado de Mayor a Menor es:"<<endl;
+	shellmayamen(v,n);
+	mostrar(v,n);
+	cout<<endl;
+	cout<<endl;
+	cout<<endl;
+	cout<<"ORDENAMIENTO DE MATRICES"<<endl;
+	cout<<"ingrese las filas de la matriz \t";
+	cin>>fil;
+	cout<<"ingrese las columnas de la matriz \t";
+	cin>>col;
+	cargarMatriz(mat,fil,col);
+	cout<<"la matriz cargada es:"<<endl;
+	mostrarMatriz(mat,fil,col);
+	cout<<"METODO SHELL"<<endl;
+	cout<<endl;
+	cout<<"La matriz ordenado de Mayor a Menor es:"<<endl;
+	matrizShellmayamen(mat,fil,col);
+	mostrarMatriz(mat,fil,col);
+	cout<<endl;
+	cout<<endl;
+	cout<<endl;
+	cout<<"METODO QUICKSORT"<<endl;
+	cout<<endl;
+	cout<<"la matriz ordenada de Menor a Mayor es:"<<endl;
+	matrizquick(mat,fil,col);
+	mostrarMatriz(mat,fil,col);
+
+	getch();
+}
