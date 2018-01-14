@@ -1,0 +1,123 @@
+// jhgfd.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "stdlib.h"
+#include "stdio.h"
+
+using namespace std;
+
+void cargar(int v[], int n)
+{
+ int x; 
+ for(int i=0;i<n;i++)
+ {
+	 cout<<"Elemento "<<i+1<<": ";
+	 cin>>x;
+	 v[i]=x;
+ }
+}
+
+void mostrar(int v[], int n)
+{
+ for(int i=0;i<n;i++)
+	 cout<<v[i];
+
+ cout<<endl;
+}
+
+void shellmayamen(int v[], int n)
+{
+	int salto,pasos,aux,i;
+ 
+	for(salto=n/2;salto!=0;salto/=2)
+		for(pasos=1;pasos!=0;)
+		{
+			pasos=0;
+			for(i=salto;i<n;i++)
+				if(v[i-salto]<v[i])
+				{
+					aux=v[i];
+					v[i]=v[i-salto];
+					v[i-salto]=aux;
+					pasos++;
+				}
+		}
+}
+void shellmenamay(int v[], int n)
+{
+	int salto,pasos,aux,i;
+ 
+	for(salto=n/2;salto!=0;salto/=2)
+		for(pasos=1;pasos!=0;)
+		{
+			pasos=0;
+			for(i=salto;i<n;i++)
+				if(v[i-salto]>v[i])
+				{
+					aux=v[i];
+					v[i]=v[i-salto];
+					v[i-salto]=aux;
+					pasos++;
+				}
+		}
+}
+
+void ordenarQuick (int vect[], int ind_izq, int ind_der)
+{
+  int i, j; /* variables indice del vector */
+  int elem; /* contiene un elemento del vector */
+  i = ind_izq;
+  j = ind_der;
+  elem = vect[(ind_izq+ind_der)/2];
+  do
+  {while (vect[i] < elem) //recorrido del vector hacia la derecha
+    i++; 
+   while (elem < vect[j]) // recorrido del vector hacia la izquierda
+    j--; 
+   if (i <= j) /* intercambiar */
+   { int aux; /* variable auxiliar */
+     aux = vect[i];
+     vect[i] = vect[j];
+     vect[j] = aux;
+     i++;
+     j--;
+   }
+  } while (i <= j);
+  if (ind_izq < j) {ordenarQuick (vect, ind_izq, j);} //Llamadas recursivas
+  if (i < ind_der) {ordenarQuick (vect, i, ind_der);}
+}
+
+void main()
+{
+	int n,der,izq;
+
+	int v[50];
+	cout<<"Dimension del vector:\t";
+	cin>>n;
+	cargar(v,n);
+	cout<<"El vector cargado es:"<<endl;
+	mostrar(v,n);
+	cout<<endl;
+	cout<<"METODO QUICKSORT"<<endl;
+	cout<<endl;
+	cout<<"El arreglo ordenado de Menor a Mayor es:"<<endl;
+	ordenarQuick(v,0,n-1);
+	mostrar(v,n);
+	cout<<endl;
+	cout<<endl;
+	cout<<endl;
+	cout<<"METODO SHELL"<<endl;
+	cout<<endl;
+	cout<<"El arreglo ordenado de Menor a Mayor es:"<<endl;
+	shellmenamay(v,n);
+	mostrar(v,n);
+	cout<<endl;
+	cout<<"El arreglo ordenado de Mayor a Menor es:"<<endl;
+	shellmayamen(v,n);
+	mostrar(v,n);
+
+	getch();
+}
